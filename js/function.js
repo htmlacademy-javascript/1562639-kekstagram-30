@@ -1,17 +1,12 @@
 // Функция для проверки длины строки.
 
-function getStringLength (string1, length) {
-  if (string1.length <= length) {
-    return true;
-  }
-  return false;
-}
+const getStringLength = (string1, length) => string1.length <= length;
 
 getStringLength('проверяемая строка', 10);
 
 // Функция для проверки, является ли строка палиндромом
 
-function checkPalindrome (string2) {
+const checkPalindrome = (string2) => {
   let stringWithoutSpaces = string2.replaceAll(' ', '');
   stringWithoutSpaces = stringWithoutSpaces.toLowerCase();
 
@@ -21,12 +16,10 @@ function checkPalindrome (string2) {
     newString += stringWithoutSpaces[i];
   }
 
-  if (stringWithoutSpaces === newString) {
-    return true;
-  }
+  const test = stringWithoutSpaces === newString ? 'true' : 'false';
 
-  return false;
-}
+  return test;
+};
 
 checkPalindrome('Лёша на полке клопа нашёл ');
 
@@ -35,11 +28,8 @@ checkPalindrome('Лёша на полке клопа нашёл ');
 // возвращает их в виде целого положительного числа.
 // Если в строке нет ни одной цифры, функция должна вернуть NaN
 
-let result = '';
-
-//let string3 = 'jdjfhik';
-
-function getNumber (string3) {
+const getIntegerNumber = (string3) => {
+  let result = '';
   if (!Number.isNaN(string3)) {
     string3 = string3.toString();
     for (let i = 0; i <= string3.length - 1; i++) {
@@ -49,10 +39,9 @@ function getNumber (string3) {
       }
     }
   }
-  if (result.length > 0) {
-    return Math.round(result);
-  }
-  return NaN;
-}
+  const integerNumber = result.length > 0 ? Math.round(result) : 'NaN';
 
-getNumber(1.5);
+  return integerNumber;
+};
+
+getIntegerNumber(1.5);
