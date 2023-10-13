@@ -7,18 +7,14 @@ getStringLength('проверяемая строка', 10);
 // Функция для проверки, является ли строка палиндромом
 
 const checkPalindrome = (string2) => {
-  let stringWithoutSpaces = string2.replaceAll(' ', '');
-  stringWithoutSpaces = stringWithoutSpaces.toLowerCase();
+  const stringWithoutSpaces = string2.replaceAll(' ', '').toLowerCase();
 
-  let newString = '';
-
-  for (let i = (stringWithoutSpaces.length - 1); i >= 0; i--) {
-    newString += stringWithoutSpaces[i];
+  for (let i = 0; i < stringWithoutSpaces.length / 2; i++) {
+    if (stringWithoutSpaces.at(i) !== stringWithoutSpaces.at(- i - 1)) {
+      return false;
+    }
   }
-
-  const test = stringWithoutSpaces === newString ? 'true' : 'false';
-
-  return test;
+  return true;
 };
 
 checkPalindrome('Лёша на полке клопа нашёл ');
@@ -39,7 +35,7 @@ const getIntegerNumber = (string3) => {
       }
     }
   }
-  const integerNumber = result.length > 0 ? Math.round(result) : 'NaN';
+  const integerNumber = result.length > 0 ? Math.round(result) : NaN;
 
   return integerNumber;
 };
