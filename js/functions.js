@@ -1,7 +1,7 @@
 const checkMeetingTime = (timeStartWork, timeEndWork, timeStartMeeting, durationMeeting) => {
   const timesArray = [timeStartWork, timeEndWork, timeStartMeeting];
   const timeInMinutesArray = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < timesArray.length; i++) {
     const partTime = timesArray[i].split(':');
     const timeInMinutes = Number(partTime[0]) * 60 + Number(partTime[1]);
     timeInMinutesArray.push(timeInMinutes);
