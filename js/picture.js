@@ -9,10 +9,16 @@ const drawSimilarPhoto = (photos) => {
 
   photos.forEach(({ url, description, likes, comments }) => {
     const element = templateFragment.cloneNode(true);
-    element.querySelector('.picture__img').src = url;
-    element.querySelector('.picture__img').alt = description;
-    element.querySelector('.picture__likes').textContent = likes;
-    element.querySelector('.picture__comments').textContent = comments.length;
+
+    const elementImage = element.querySelector('.picture__img');
+    const elementLikes = element.querySelector('.picture__likes');
+    const elementComments = element.querySelector('.picture__comments');
+
+    elementImage.src = url;
+    elementImage.alt = description;
+    elementLikes.textContent = likes;
+    elementComments.textContent = comments.length;
+
     fragment.appendChild(element);
   });
 
