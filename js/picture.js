@@ -35,6 +35,4 @@ const drawSimilarPhoto = (photos) => {
 
 };
 
-
-
 export { drawSimilarPhoto };
