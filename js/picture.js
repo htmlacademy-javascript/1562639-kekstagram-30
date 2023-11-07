@@ -1,3 +1,5 @@
+import {onThumbnailClick} from './big-picture.js';
+
 const picturesContainer = document.querySelector('.pictures');
 const templateFragment = document.querySelector('#picture')
   .content
@@ -20,9 +22,19 @@ const drawSimilarPhoto = (photos) => {
     elementComments.textContent = comments.length;
 
     fragment.appendChild(element);
+
   });
 
   picturesContainer.appendChild(fragment);
+
+  const thumbnails = document.querySelectorAll('.picture');
+
+  thumbnails.forEach((thumbnail, i) => {
+    onThumbnailClick(thumbnail, photos[i]);
+  });
+
 };
+
+
 
 export { drawSimilarPhoto };
