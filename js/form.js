@@ -1,6 +1,9 @@
 import { isEscape } from './util';
+import { resetResize } from './resize-image.js';
+import {resetEffects} from './effect-image.js';
 
 const MAX_HASHTAGS_AMOUNT = 5;
+const MAX_DESCRIPTION_AMOUNT = 140;
 const VALID_SYMBOLS = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const ErrorText = {
@@ -49,6 +52,8 @@ function closeRedactorPhoto() {
   inputHashtag.removeEventListener('keydown', isTextFieldFocused);
   inputDescription.removeEventListener('keydown', isTextFieldFocused);
   document.removeEventListener('keydown', onRedactorEscKeydown);
+  resetResize();
+  resetEffects();
 }
 
 const onFileInputChange = () => {
@@ -98,12 +103,12 @@ pristine.addValidator(
   true
 );
 
-const validateDescription = (value) => value.length <= 140;
+const validateDescription = (value) => value.length <= MAX_DESCRIPTION_AMOUNT;
 
 pristine.addValidator(
   inputDescription,
   validateDescription,
-  'Не более 140 символов'
+  `Не более ${MAX_DESCRIPTION_AMOUNT} символов`
 );
 
 const onFormSubmit = (evt) => {
