@@ -1,6 +1,7 @@
 import { isEscape } from './util';
 import { resetResize } from './resize-image.js';
-import {resetEffects} from './effect-image.js';
+import { resetEffects } from './effect-image.js';
+import { sendData } from './api.js';
 
 const MAX_HASHTAGS_AMOUNT = 5;
 const MAX_DESCRIPTION_AMOUNT = 140;
@@ -12,6 +13,11 @@ const ErrorText = {
   INVALID_AMOUNT: `нельзя указать больше ${MAX_HASHTAGS_AMOUNT} хэш-тегов`,
 };
 
+const SubmitButtonCaption = {
+  SUBMITTING: 'Отправляю...',
+  IDLE: 'Отправить',
+};
+
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
 const fileInput = form.querySelector('.img-upload__input');
@@ -19,6 +25,7 @@ const overlay = form.querySelector('.img-upload__overlay');
 const redactorCancelButton = form.querySelector('.img-upload__cancel');
 const inputHashtag = form.querySelector('.text__hashtags');
 const inputDescription = form.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -26,8 +33,10 @@ const pristine = new Pristine(form, {
   errorTextParent: 'img-upload__field-wrapper',
 });
 
+const isErrorMessageExist = () => Boolean(document.querySelector('.error'));
+
 const onRedactorEscKeydown = (evt) => {
-  if (isEscape(evt)) {
+  if (isEscape(evt) && !isErrorMessageExist()) {
     evt.preventDefault();
     closeRedactorPhoto();
   }
@@ -111,11 +120,36 @@ pristine.addValidator(
   `Не более ${MAX_DESCRIPTION_AMOUNT} символов`
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
+const toggleSubmitButton = (isDisabled) => {
+  submitButton.disabled = isDisabled;
+  submitButton.textContent = isDisabled ? SubmitButtonCaption.SUBMITTING : SubmitButtonCaption.IDLE;
 };
+
+const setUserFormSubmit = (onSuccess, onFail) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      toggleSubmitButton(true);
+      sendData(
+        () => {
+          onSuccess();
+          toggleSubmitButton(false);
+          closeRedactorPhoto();
+        },
+        () => {
+          onFail();
+          toggleSubmitButton(false);
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
+
 
 fileInput.addEventListener('change', onFileInputChange);
 
 redactorCancelButton.addEventListener('click', onCancelButtonClick);
-form.addEventListener('submit', onFormSubmit);
+
+export {setUserFormSubmit};

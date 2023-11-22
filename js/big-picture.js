@@ -98,4 +98,4 @@ const onThumbnailClick = (thumbnail, photoData) => {
 closeBigPictureButton.addEventListener('click', onCloseBigPicture);
 commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
-export {onThumbnailClick};
+export {onThumbnailClick, onCloseBigPicture};
