@@ -3,6 +3,7 @@ const getData = (onSuccess, onFail) => {
     .then((response) => response.json())
     .then((photos) => {
       onSuccess(photos);
+
     })
     .catch(() => {
       onFail();

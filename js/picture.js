@@ -22,7 +22,6 @@ const drawSimilarPhoto = (photos) => {
     elementComments.textContent = comments.length;
 
     fragment.appendChild(element);
-
   });
 
   picturesContainer.appendChild(fragment);
@@ -32,7 +31,6 @@ const drawSimilarPhoto = (photos) => {
   thumbnails.forEach((thumbnail, i) => {
     onThumbnailClick(thumbnail, photos[i]);
   });
-
 };
 
 export { drawSimilarPhoto };
