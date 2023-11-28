@@ -101,7 +101,7 @@ noUiSlider.create(sliderElement, {
 
 
 sliderElement.noUiSlider.on('update', () => {
-  const filterValue = sliderElement.noUiSlider.get();
+  const filterValue = sliderElement.noUiSlider.get(true);
   effectLevelElement.value = filterValue;
   sliderContainerElement.classList.remove('hidden');
   const selectedEffect = document.querySelector('input[name="effect"]:checked').value;
