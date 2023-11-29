@@ -45,13 +45,13 @@ const onRedactorEscKeydown = (evt) => {
   }
 };
 
-const isTextFieldFocused = (evt) => evt.stopPropagation();
+const setTextFieldFocused = (evt) => evt.stopPropagation();
 
 const openRedactorPhoto = () => {
   overlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  inputHashtag.addEventListener('keydown', isTextFieldFocused);
-  inputDescription.addEventListener('keydown', isTextFieldFocused);
+  inputHashtag.addEventListener('keydown', setTextFieldFocused);
+  inputDescription.addEventListener('keydown', setTextFieldFocused);
   document.addEventListener('keydown', onRedactorEscKeydown);
 };
 
@@ -61,8 +61,8 @@ function closeRedactorPhoto() {
   fileInput.value = '';
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  inputHashtag.removeEventListener('keydown', isTextFieldFocused);
-  inputDescription.removeEventListener('keydown', isTextFieldFocused);
+  inputHashtag.removeEventListener('keydown', setTextFieldFocused);
+  inputDescription.removeEventListener('keydown', setTextFieldFocused);
   document.removeEventListener('keydown', onRedactorEscKeydown);
   resetResize();
   resetEffects();
