@@ -1,20 +1,20 @@
 import { isEscape } from './util';
 
-const successMessageElement = document.querySelector('#success')
+const successMessage = document.querySelector('#success')
   .content
   .querySelector('.success');
-const errorMessageElement = document.querySelector('#error')
+const errorMessage = document.querySelector('#error')
   .content
   .querySelector('.error');
 
 const hideMessage = () => {
-  const existsElement = document.querySelector('.success') || document.querySelector('.error');
-  existsElement.remove();
+  const existsMessage = document.querySelector('.success') || document.querySelector('.error');
+  existsMessage.remove();
   document.removeEventListener('keydown', onMessageEscKeydown);
   document.body.removeEventListener('click', onBodyClick);
 };
 
-const onCLoseButtonClick = () => {
+const onCloseButtonClick = () => {
   hideMessage();
 };
 
@@ -38,15 +38,15 @@ const showMessage = (element, buttonClass) => {
   document.addEventListener('keydown', onMessageEscKeydown);
   element
     .querySelector(buttonClass)
-    .addEventListener('click', onCLoseButtonClick);
+    .addEventListener('click', onCloseButtonClick);
 };
 
 const showSuccesMessage = () => {
-  showMessage(successMessageElement, '.success__button');
+  showMessage(successMessage, '.success__button');
 };
 
 const showErrorMessage = () => {
-  showMessage(errorMessageElement, '.error__button');
+  showMessage(errorMessage, '.error__button');
 };
 
 export {showSuccesMessage, showErrorMessage};

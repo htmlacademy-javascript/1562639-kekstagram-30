@@ -49,8 +49,8 @@ const debounceRepaint = debounce(repaint, RERENDER_DELAY);
 
 const toggleActive = (evt, filter, data) => {
   if (currentFilter !== filter) {
-    const currentActiveEl = document.querySelector('.img-filters__button--active');
-    currentActiveEl.classList.remove('img-filters__button--active');
+    const currentActiveButton = document.querySelector('.img-filters__button--active');
+    currentActiveButton.classList.remove('img-filters__button--active');
     evt.target.classList.add('img-filters__button--active');
     currentFilter = filter;
     debounceRepaint(filter, data);

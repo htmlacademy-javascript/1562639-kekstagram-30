@@ -82,14 +82,14 @@ const effectToSliderOptions = {
 };
 
 const form = document.querySelector('.img-upload__form');
-const imageElement = form.querySelector('.img-upload__preview img');
-const effectsElement = form.querySelector('.effects');
-const sliderContainerElement = form.querySelector('.img-upload__effect-level');
-const sliderElement = form.querySelector('.effect-level__slider');
-const effectLevelElement = form.querySelector('.effect-level__value');
+const previewImage = form.querySelector('.img-upload__preview img');
+const previewEffects = form.querySelector('.effects');
+const sliderContainer = form.querySelector('.img-upload__effect-level');
+const slider = form.querySelector('.effect-level__slider');
+const effectLevelValue = form.querySelector('.effect-level__value');
 
 
-noUiSlider.create(sliderElement, {
+noUiSlider.create(slider, {
   range: {
     min: 0,
     max: 100,
@@ -100,33 +100,33 @@ noUiSlider.create(sliderElement, {
 });
 
 
-sliderElement.noUiSlider.on('update', () => {
-  const filterValue = sliderElement.noUiSlider.get(true);
-  effectLevelElement.value = filterValue;
-  sliderContainerElement.classList.remove('hidden');
+slider.noUiSlider.on('update', () => {
+  const filterValue = slider.noUiSlider.get(true);
+  effectLevelValue.value = filterValue;
+  sliderContainer.classList.remove('hidden');
   const selectedEffect = document.querySelector('input[name="effect"]:checked').value;
   if (selectedEffect !== Effects.NONE) {
-    const { value } = effectLevelElement;
+    const { value } = effectLevelValue;
     const { style, unit } = effectToFilter[selectedEffect];
 
-    imageElement.style.filter = `${style}(${value}${unit})`;
+    previewImage.style.filter = `${style}(${value}${unit})`;
   } else {
-    imageElement.style.filter = 'none';
-    sliderContainerElement.classList.add('hidden');
+    previewImage.style.filter = 'none';
+    sliderContainer.classList.add('hidden');
   }
 });
 
 const onEffectChange = (evt) => {
   const effectValue = evt.target.value;
-  sliderElement.noUiSlider.updateOptions(effectToSliderOptions[effectValue]);
+  slider.noUiSlider.updateOptions(effectToSliderOptions[effectValue]);
 };
 
-effectsElement.addEventListener('change', onEffectChange);
+previewEffects.addEventListener('change', onEffectChange);
 
 const resetEffects = () => {
   document.querySelector('#effect-none').check = true;
-  imageElement.style.filter = 'none';
-  sliderContainerElement.classList.add('hidden');
+  previewImage.style.filter = 'none';
+  sliderContainer.classList.add('hidden');
 };
 
 export {resetEffects};
